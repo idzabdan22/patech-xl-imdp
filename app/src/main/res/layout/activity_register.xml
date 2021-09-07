@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white_app"
+    tools:context=".main.Register">
+
+    <LinearLayout
+        style="@style/form_container">
+
+        <ImageView
+            style="@style/image_format"
+            />
+
+        <EditText
+            android:id="@+id/email_edittext"
+            android:hint="Email"
+            style="@style/form_edittext"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/username_edittext"
+            android:hint="Username"
+            style="@style/form_edittext"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/password_edittext"
+            android:hint="Password"
+            style="@style/form_edittext"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/confirm_pass_edittext"
+            android:hint="Confirm Password"
+            style="@style/form_edittext"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/form_container">
+
+        <Button
+            style="@style/login_register_button"
+            android:layout_marginBottom="20dp"
+            android:text="Register"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/base_layout"
+            app:backgroundTint="@null"
+            android:layout_height="60dp"/>
+
+    </LinearLayout>
+</LinearLayout>

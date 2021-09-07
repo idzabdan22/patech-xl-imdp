@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_app"
+    android:orientation="vertical"
+    android:gravity="center_vertical|center_horizontal"
+    tools:context=".main.Login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:id="@+id/logo_container"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginLeft="17dp"
+            android:src="@drawable/logo_patech"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/textbox_container"
+        style="@style/form_container">
+
+        <EditText
+            style="@style/form_edittext"
+            android:id="@+id/editTextTextPassword"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            style="@style/form_edittext"
+            android:id="@+id/editTextTextEmailAddress"
+            android:hint="Password"
+            android:autofillHints="Password"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/lupa_password"
+            style="@style/default_text_app"
+            android:layout_gravity="right"
+            android:paddingRight="8dp"
+            android:text="Lupa Password?" />
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_marginTop="60dp"
+            style="@style/login_register_button"
+            android:text="Login ->"
+            app:backgroundTint="@null" />
+
+        <TextView
+            android:id="@+id/pengguna_baru"
+            style="@style/default_text_app"
+            android:text="Pengguna Baru? Daftar Sekarang" />
+
+        <TextView
+            style="@style/default_text_app"
+            android:text="Or" />
+
+        <com.google.android.gms.common.SignInButton
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/google_signin_button"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

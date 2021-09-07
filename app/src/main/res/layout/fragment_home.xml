@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/patech_primary"
+    tools:context=".fragments.HomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+           style="@style/form_container"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Sensor"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="UTARA"
+                android:textSize="40dp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/lastUpdateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="Update Terakhir 12.30"
+                android:textSize="10dp"
+                android:textColor="@color/black"
+                />
+
+           <LinearLayout
+               android:weightSum="4"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:orientation="horizontal">
+
+               <LinearLayout
+                   android:background="@drawable/base_layout"
+                   style="@style/box_item_data">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Temp"
+                       android:layout_gravity="center"
+                       android:textSize="12sp"
+                       android:textColor="@color/black"
+                       />
+
+                   <TextView
+                       android:id="@+id/temperatureRecent"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="25"
+                       android:layout_gravity="center"
+                       android:textSize="36sp"
+                       android:textColor="@color/black"
+                       />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Celcius"
+                       android:layout_gravity="center"
+                       android:textSize="12sp"
+                       android:textColor="@color/black"
+                       />
+
+               </LinearLayout>
+               <LinearLayout
+                   android:background="@drawable/base_layout"
+                  style="@style/box_item_data">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="HUM"
+                       android:layout_gravity="center"
+                       android:textSize="12sp"
+                       android:textColor="@color/black"
+                       />
+
+                   <TextView
+                       android:id="@+id/humidityRecent"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="68"
+                       android:layout_gravity="center"
+                       android:textSize="36sp"
+                       android:textColor="@color/black"
+                       />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="%"
+                       android:layout_gravity="center"
+                       android:textSize="12sp"
+                       android:textColor="@color/black"
+                       />
+
+               </LinearLayout>
+               <LinearLayout
+                   android:background="@drawable/base_layout"
+                   style="@style/box_item_data">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="RAIN"
+                       android:layout_gravity="center"
+                       android:textSize="12sp"
+                       android:textColor="@color/black"
+                       />
+
+                   <TextView
+                       android:id="@+id/raindurRecent"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="2.5"
+                       android:layout_gravity="center"
+                       android:textSize="36sp"
+                       android:textColor="@color/black"
+                       />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="JAM"
+                       android:layout_gravity="center"
+                       android:textSize="12sp"
+                       android:textColor="@color/black"
+                       />
+
+               </LinearLayout>
+               <LinearLayout
+                   android:gravity="center"
+                   android:background="@drawable/base_layout"
+                   style="@style/box_item_data">
+
+                   <TextView
+                       android:id="@+id/statusPatech"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="NORMAL"
+                       android:layout_gravity="center"
+                       android:textSize="16sp"
+                       android:textColor="@color/black"
+                       />
+
+               </LinearLayout>
+           </LinearLayout>
+
+            <LinearLayout
+                android:background="@color/white_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <ProgressBar
+                        android:layout_weight="1"
+
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="UTARA\n\nNORMAL"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_height="50dp"
+                        style="@style/box_item_data_container_container">
+
+                        <TextView
+                            android:text="TEMP"
+                            style="@style/text_item_data_container"
+                            />
+
+                        <TextView
+                            android:textSize="16sp"
+                            android:text="20.0"
+                            style="@style/text_item_data_container"
+                            />
+
+                        <TextView
+                            android:text="Celcius"
+                            style="@style/text_item_data_container"
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_height="50dp"
+                        style="@style/box_item_data_container_container">
+
+                        <TextView
+                            android:text="HUM"
+                            style="@style/text_item_data_container"
+                            />
+
+                        <TextView
+                            android:text="74"
+                            android:textSize="16sp"
+                            style="@style/text_item_data_container"
+                            />
+
+                        <TextView
+                            android:text="%"
+                            style="@style/text_item_data_container"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_height="50dp"
+                        style="@style/box_item_data_container_container">
+
+                        <TextView
+                            android:text="RAIN"
+                            style="@style/text_item_data_container"
+                            />
+
+                        <TextView
+                            android:text="3.2"
+                            android:textSize="16sp"
+                            style="@style/text_item_data_container"
+                            />
+
+                        <TextView
+                            android:text="JAM"
+                            style="@style/text_item_data_container"
+                            />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+
+</FrameLayout>
