@@ -20,22 +20,16 @@ public class Severity {
         public Float getTemp() {
             return temp;
         }
-
         public void setTemp(Float temp) {
             this.temp = temp;
         }
-
         public Float getRain_dur() {
             return rain_dur;
         }
-
         public void setRain_dur(Float rain_dur) {
             this.rain_dur = rain_dur;
         }
-
-        public void Severity(){
-
-        double sev = 4.0233-(0.2283*rain_dur)-(0.5308*temp)-(0.0013*rain_dur)+(0.0197*(temp*temp))+(0.0155*(rain_dur*temp));
-        return;
+        public Severity(){
+            double sev = 4.0233-(0.2283*rain_dur)-(0.5308*temp)-(0.0013*rain_dur)+(0.0197*(temp*temp))+(0.0155*(rain_dur*temp));
         }}
 
