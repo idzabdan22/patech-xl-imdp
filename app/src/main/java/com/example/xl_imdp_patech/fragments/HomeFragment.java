@@ -72,9 +72,7 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
-
     private void initFirebaseDatabase(String firebaseUrl){
-
     }
 
     @SuppressLint("SetTextI18n")

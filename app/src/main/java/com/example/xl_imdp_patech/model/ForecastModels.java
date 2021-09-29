@@ -72,10 +72,9 @@ public class ForecastModels extends AppCompatActivity {
         return byteBuffer;
     }
 
-
-        protected void onCreate (Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            try {
+    protected void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        try {
                 Patech model = Patech.newInstance(this);
                 tflite = new Interpreter(loadModelFile());
                 TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 2}, DataType.FLOAT32);
@@ -90,9 +89,8 @@ public class ForecastModels extends AppCompatActivity {
                 //Releases model resources if no longer used.
                 model.close();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
+        catch (Exception ex) {ex.printStackTrace();}
         }
 
     //Mapped model on Asset
