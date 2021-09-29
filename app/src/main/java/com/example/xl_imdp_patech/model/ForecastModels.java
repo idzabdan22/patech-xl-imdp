@@ -39,72 +39,40 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
 public class ForecastModels extends AppCompatActivity {
-
     Interpreter tflite;
-    private ByteBuffer byteBuffer = ByteBuffer.allocateDirect(2*4);
-
-    @SerializedName("humidity")
-    @Expose
-    private Integer humidity;
-
-    @SerializedName("rain_condition")
-    @Expose
-    private Integer rain_condition;
 
     @SerializedName("temp")
     @Expose
     private Float temp;
 
-    public void ArduinoDataModel(Integer humidity, Integer rain_condition, Float temp, Float rain_dur) {
-        this.humidity = humidity;
-        this.rain_condition = rain_condition;
-        this.temp = temp;
-        this.rain_dur = rain_dur;
-    }
-
-    public Integer getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(Integer humidity) {
-        this.humidity = humidity;
-    }
-
-    public Integer getRain_condition() {
-        return rain_condition;
-    }
-
-    public void setRain_condition(Integer rain_condition) {
-        this.rain_condition = rain_condition;
-    }
-
-    public Float getTemp() {
-        return temp;
-    }
-
-    public void setTemp(Float temp) {
-        this.temp = temp;
-    }
-
-    public Float getRain_dur() {
-        return rain_dur;
-    }
-
-    public void setRain_dur(Float rain_dur) {
-        this.rain_dur = rain_dur;
-    }
-
     @SerializedName("rain_dur")
     @Expose
     private Float rain_dur;
 
+    public void ArduinoDataModel(Float temp, Float rain_dur) {
+        this.temp = temp;
+        this.rain_dur = rain_dur; }
+
+    public Float getTempF() { return temp=(temp*9/5)+32; }
+    public void setTempF(Float temp) {
+        this.temp = temp;
+    }
+    public Float getRain_dur() {
+        return rain_dur;
+    }
+    public void setRain_dur(Float rain_dur) {
+        this.rain_dur = rain_dur;
+    }
+
+    //ByteBuffer
+    private ByteBuffer byteBuffer = ByteBuffer.allocateDirect(2*4);
     public ByteBuffer getByteBuffer() {
-        byteBuffer.putFloat(getTemp());
+        byteBuffer.putFloat(getTempF());
         byteBuffer.putFloat(getRain_dur());
         return byteBuffer;
     }
-    //mapped model on Asset
-        
+
+
         protected void onCreate (Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             try {
@@ -112,12 +80,14 @@ public class ForecastModels extends AppCompatActivity {
                 tflite = new Interpreter(loadModelFile());
                 TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 2}, DataType.FLOAT32);
                 inputFeature0.loadBuffer(byteBuffer);
+
                 // Runs model inference and gets result.
                 Patech.Outputs outputs = model.process(inputFeature0);
                 TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
-                // tv :TextView = findViewById(R.id.TextView);
-                // tv.setText(outputFeature0[0].toString()+"\n"+outputFeature0[1].toString()),outputFeature0[2].toString();
-                // Releases model resources if no longer used.
+                //tv :TextView = findViewById(R.id.TextView);
+                //tv.setText(outputFeature0[0].toString()+"\n"+outputFeature0[1].toString()),outputFeature0[2].toString();
+
+                //Releases model resources if no longer used.
                 model.close();
 
             } catch (Exception ex) {
@@ -125,6 +95,7 @@ public class ForecastModels extends AppCompatActivity {
             }
         }
 
+    //Mapped model on Asset
     private MappedByteBuffer loadModelFile() throws IOException {
             AssetFileDescriptor fileDescriptor = this.getAssets().openFd("patech (2).tflite");
             FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
@@ -135,59 +106,3 @@ public class ForecastModels extends AppCompatActivity {
         }
     }
 
-
-
-
-
-    /*public float doInference(String inputString){
-        //Input shape is [1]. Single valued input
-        float[]inputVal=new float[1];
-        inputVal[0]=Float.valueOf(inputString);
-        inputVal[1]=Float.valueOf(inputString);
-        //Output shape is [1][1]
-        float[][] outputval=new float[1][1];
-
-        //Run inference passing the input shape and getting the output shape
-        tflite.run(inputVal, outputval);
-
-        //Inferred value is at [0][0]
-        float inferredValue=outputval[0][0];
-
-        return inferredValue;
-    }*/
-
-
-  /*  private ByteBuffer loadModelFile() {
-    }*/
-
-
- /*   public class new_class {
-        private Context context;
-
-        public new_class(Context context) {
-            this.context = context;
-        }
-*/
-
-
-  /*  protected void onCreate (Bundle savedInstanceState){
-       // super.onCreate(savedInstanceState);
-        try {
-        Patech model = Patech.newInstance(loadModelFile());
-
-        // Creates inputs for reference.
-        TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 2}, DataType.FLOAT32);
-        ByteBuffer byteBuffer;
-        inputFeature0.loadBuffer(byteBuffer);
-
-        // Runs model inference and gets result.
-        Patech.Outputs outputs = model.process(inputFeature0);
-        TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
-
-        // Releases model resources if no longer used.
-        model.close();
-    }
-    catch(
-    IOException e) {
-
-    }}}*/
