@@ -1,10 +1,19 @@
 package com.example.xl_imdp_patech.model;
 
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.os.Bundle;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import org.tensorflow.lite.Interpreter;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 
 public class ArduinoDataModel {
-
     @SerializedName("humidity")
     @Expose
     private Integer humidity;
@@ -61,8 +70,6 @@ public class ArduinoDataModel {
     private Float rain_dur;
 
     public ArduinoDataModel(){
-    }
 
+    }}
 
-
-}

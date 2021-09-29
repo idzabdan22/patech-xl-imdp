@@ -8,10 +8,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.xl_imdp_patech"
-        minSdkVersion 20
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+      //  libMetadata
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,13 +65,24 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     //Tensorflow
     implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-task-vision:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-task-text:0.1.0'
+    //libMetadata 'org.tensorflow:tensorflow-lite-support:0.0.0-experimental-metadata-monolithic'
 }
     buildFeatures {
         mlModelBinding true
     }
 }
 
-dependencies {
-    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
-    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
-}
+/*dependencies {
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.3.0'
+}*/
+
+//dependencies {
+ //   implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+ //   implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+  //  implementation 'org.tensorflow:tensorflow-lite-task-vision:0.1.0'
+   // implementation 'org.tensorflow:tensorflow-lite-task-text:0.1.0'
+//}
