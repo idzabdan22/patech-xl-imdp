@@ -114,9 +114,9 @@ public class ForecastModels extends AppCompatActivity {
                 inputFeature0.loadBuffer(byteBuffer);
                 // Runs model inference and gets result.
                 Patech.Outputs outputs = model.process(inputFeature0);
-                TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer().getFloatArray();
+                TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
                 // tv :TextView = findViewById(R.id.TextView);
-                //tv.setText(outputFeature0[0].toString()+"\n"+outputFeature0[1].toString()),outputFeature0[2].toString();
+                // tv.setText(outputFeature0[0].toString()+"\n"+outputFeature0[1].toString()),outputFeature0[2].toString();
                 // Releases model resources if no longer used.
                 model.close();
 
