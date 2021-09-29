@@ -26,11 +26,11 @@ import java.util.PriorityQueue;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
-
 import android.annotation.SuppressLint;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -108,9 +108,18 @@ public class ForecastModels extends AppCompatActivity {
         protected void onCreate (Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             try {
+                Patech model = Patech.newInstance(this);
                 tflite = new Interpreter(loadModelFile());
                 TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 2}, DataType.FLOAT32);
                 inputFeature0.loadBuffer(byteBuffer);
+                // Runs model inference and gets result.
+                Patech.Outputs outputs = model.process(inputFeature0);
+                TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer().getFloatArray();
+                // tv :TextView = findViewById(R.id.TextView);
+                //tv.setText(outputFeature0[0].toString()+"\n"+outputFeature0[1].toString()),outputFeature0[2].toString();
+                // Releases model resources if no longer used.
+                model.close();
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
