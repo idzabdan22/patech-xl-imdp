@@ -3,134 +3,161 @@ package com.example.xl_imdp_patech.main;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.xl_imdp_patech.fragments.HomeFragment;
 import com.example.xl_imdp_patech.fragments.ProfileFragment;
 import com.example.xl_imdp_patech.fragments.WeatherFragment;
 import com.example.xl_imdp_patech.R;
-import com.example.xl_imdp_patech.api.ApiServiceCurrent;
-import com.example.xl_imdp_patech.model.Current;
-import com.example.xl_imdp_patech.model.HourForecast;
-import com.example.xl_imdp_patech.model.LocationWeather;
-import com.example.xl_imdp_patech.model.WeatherApiModels;
-import com.example.xl_imdp_patech.model.WeatherModel;
+import com.example.xl_imdp_patech.model.main.ArduinoDataModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class Home extends AppCompatActivity {
     BottomNavigationView btmNavId;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    ImageView cancelButton;
     HomeFragment homeFragment = new HomeFragment();
     WeatherFragment weatherFragment = new WeatherFragment();
     ProfileFragment profileFragment = new ProfileFragment();
     FrameLayout frameLayout;
-    LocationManager locationManager;
+    Dialog dialog;
     private final int PERMISSION_CODE = 1;
+    private final String FIREBASE_URL = "https://patech-xl-imdp-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        cancelButton = findViewById(R.id.cancel_dialog);
+
         //Set Screen Fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        firebaseDatabase = FirebaseDatabase.getInstance(FIREBASE_URL);
+        databaseReference = firebaseDatabase.getReference("data");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 1;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(i == dataSnapshot.getChildrenCount()){
+                        ArduinoDataModel arduinoDataModel = dataSnapshot.getValue(ArduinoDataModel.class);
+                        assert arduinoDataModel != null;
+                        Float currTemp = arduinoDataModel.getTemp();
+                        Float currRainDur = arduinoDataModel.getRain_dur();
+                        Integer currHumidity = arduinoDataModel.getHumidity();
+                        Integer currRainCond = arduinoDataModel.getRain_condition();
+                        addNotification();
+
+                    }
+                    i++;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TAG", error.getMessage());
+            }
+        });
+
+
+        //notification manager
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("1", "1", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
 
         //Initialize Location by Location Manager
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
         }
 
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         String cityName = getCityName(location.getLongitude(), location.getLatitude());
         Bundle bundle = new Bundle();
+        String latlong = location.getLatitude() + "," + location.getLongitude();
         bundle.putString("city", cityName);
+        bundle.putString("latlong", latlong);
         weatherFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, homeFragment);
+        fragmentTransaction.commit();
+
+        dialog = new Dialog(Home.this);
 
         btmNavId = findViewById(R.id.bot_nav);
         frameLayout = findViewById(R.id.frame_layout);
 
 
-
-        btmNavId.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        btmNavId.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.homeButton:
                         fragmentTransaction.replace(R.id.frame_layout, homeFragment);
                         fragmentTransaction.commit();
                         break;
                     case R.id.weatherButton:
-                        fragmentTransaction.replace(R.id.frame_layout, weatherFragment);
+                        fragmentTransaction.replace(R.id.frame_layout, weatherFragment, "WF");
                         fragmentTransaction.commit();
                         break;
-                    case R.id.userButton:
-                        fragmentTransaction.replace(R.id.frame_layout, new ProfileFragment());
-                        fragmentTransaction.commit();
-                        break;
+//                    case R.id.userButton:
+//                        fragmentTransaction.replace(R.id.frame_layout, new ProfileFragment());
+//                        fragmentTransaction.commit();
+//                        break;
                     default:
                         return false;
                 }
                 return true;
-            }
-        });
-    }
-
-    public void getFirebaseDatabase(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://patech-xl-imdp-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        DatabaseReference myRef = database.getReference("data");
-        myRef.child("rain_dur").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()){
-                }
-                else{
-                }
             }
         });
     }
@@ -157,60 +184,6 @@ public class Home extends AppCompatActivity {
     }
 
 
-
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        ApiServiceCurrent service = retrofit.create(ApiServiceCurrent.class);
-//        Call<WeatherApiModels> call = service.getCurrentWeather(API_KEY, cityName, 1, "no", "no");
-//        call.enqueue(new Callback<WeatherApiModels>() {
-//            @Override
-//            public void onResponse(Call<WeatherApiModels> call, Response<WeatherApiModels> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<WeatherApiModels> call, Throwable t) {
-//
-//            }
-//        });
-////        call.enqueue(new Callback<WeatherApiModels>() {
-////            @Override
-////            public void onResponse(Call<WeatherApiModels> call, Response<WeatherApiModels> response) {
-////                if (response.code() == 200){
-////                    ArrayList<WeatherApiModels.Forecast.Forecastday> = new ArrayList<>(response.body().getForecasts().getForecastdays().)
-////                    LocationWeather locationWeather = weatherApiModels.getLocation();
-////                    Current current = weatherApiModels.getCurrent();
-////                    String regionName = locationWeather.getRegionName();
-////                    String lastUpdate = current.getLastUpdate();
-////                    Float tempInCelcius = current.getTempCelcius();
-////                    Integer humidity = current.getHumidity();
-////                    String skyCondition = current.getCondition().getSkyCondition();
-////                    Integer code = current.getCondition().getCode();
-////                    bundleForFragments(cityName, regionName, lastUpdate, tempInCelcius, humidity, skyCondition, code);
-////                }
-////            }
-////
-////            @Override
-////            public void onFailure(Call<WeatherApiModels> call, Throwable t) {
-////
-////            }
-////        });
-//     }
-
-//     public void bundleForFragments(String cityName, String regionName, Float temp, Integer humidity, String skyCondition, Integer code){
-//            Bundle bundle = new Bundle();
-//            bundle.putString("region", regionName);
-//            bundle.putFloat("temp", temp);
-//            bundle.putInt("hum", humidity);
-//            bundle.putString("sky", skyCondition);
-//            bundle.putInt("code", code);
-//            bundle.putString("city", cityName);
-//            weatherFragment.setArguments(bundle);
-//     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -224,4 +197,33 @@ public class Home extends AppCompatActivity {
             }
         }
     };
+
+    private void addNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(Home.this, "1");
+                        builder.setSmallIcon(R.drawable.logo_patech);
+                        builder.setContentTitle("WASPADA ANTRAKNOSA");
+                        builder.setContentText("Segera cek tanaman cabai Anda");
+                        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                        builder.setAutoCancel(true);
+
+//
+//        Intent notificationIntent = new Intent(this, MainActivity.class);
+//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        // Add as notification
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Home.this);
+        notificationManagerCompat.notify(1, builder.build());
+    }
+
+    private void showDialog(){
+        dialog.setContentView(R.layout.dialog_layout);
+        dialog.getWindow().setBackgroundDrawable(null);
+        dialog.getWindow().setDimAmount(0.0f);
+        dialog.show();
+    }
+
+
 }

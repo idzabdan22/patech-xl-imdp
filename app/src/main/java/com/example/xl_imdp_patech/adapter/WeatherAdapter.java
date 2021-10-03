@@ -1,8 +1,6 @@
 package com.example.xl_imdp_patech.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Response;
 import com.example.xl_imdp_patech.R;
-import com.example.xl_imdp_patech.model.WeatherApiModels;
-import com.example.xl_imdp_patech.model.WeatherModel;
-
-import org.json.JSONObject;
+import com.example.xl_imdp_patech.model.main.WeatherModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
@@ -28,7 +21,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
     public WeatherAdapter(ArrayList<WeatherModel> modelArrayList) {
         this.modelArrayList = modelArrayList;
     }
-
 
     @NonNull
     @Override

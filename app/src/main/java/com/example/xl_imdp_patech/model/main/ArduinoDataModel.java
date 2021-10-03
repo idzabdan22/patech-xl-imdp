@@ -1,4 +1,4 @@
-package com.example.xl_imdp_patech.model;
+package com.example.xl_imdp_patech.model.main;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,11 +17,29 @@ public class ArduinoDataModel {
     @Expose
     private Float temp;
 
-    public ArduinoDataModel(Integer humidity, Integer rain_condition, Float temp, Float rain_dur) {
+    @SerializedName("date")
+    @Expose
+    private String date;
+
+    @SerializedName("hour")
+    @Expose
+    private Integer hour;
+
+    public ArduinoDataModel(Integer humidity, Integer rain_condition, Float temp, Float rain_dur, String date, Integer hour) {
         this.humidity = humidity;
         this.rain_condition = rain_condition;
         this.temp = temp;
         this.rain_dur = rain_dur;
+        this.date = date;
+        this.hour = hour;
+    }
+
+    public Integer getHour() {
+        return hour;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public Integer getHumidity() {

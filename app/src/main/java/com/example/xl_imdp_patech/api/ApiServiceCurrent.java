@@ -1,6 +1,6 @@
 package com.example.xl_imdp_patech.api;
 
-import com.example.xl_imdp_patech.model.WeatherApiModels;
+import com.example.xl_imdp_patech.model.retrofit.WeatherApiModels;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

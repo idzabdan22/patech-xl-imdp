@@ -1,8 +1,6 @@
-package com.example.xl_imdp_patech.model;
+package com.example.xl_imdp_patech.model.retrofit;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 
 public class Forecastday {
     public HourForecast[] getHourForecasts() {

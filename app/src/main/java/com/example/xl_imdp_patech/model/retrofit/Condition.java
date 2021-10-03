@@ -1,4 +1,4 @@
-package com.example.xl_imdp_patech.model;
+package com.example.xl_imdp_patech.model.retrofit;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

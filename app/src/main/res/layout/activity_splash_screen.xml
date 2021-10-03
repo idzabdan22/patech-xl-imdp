@@ -5,37 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@drawable/backround_app"
+    android:gravity="center_horizontal | center_vertical"
+    android:background="@color/white"
     tools:context=".main.SplashScreen">
 
     <ImageView
-        android:layout_marginTop="185dp"
-        android:layout_marginLeft="17dp"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:src="@drawable/logo_patech" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="270dp"
         android:id="@+id/patech_jdl"
-        android:text="Patech"
-        android:textSize="30dp"
-        android:fontFamily="@font/montserratbold"
-        android:textColor="@color/white"
+        android:text="from"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserratregular"
+        android:textColor="@color/patech_secondary"
         />
 
     <TextView
+        android:text="TEST"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/patech_desc"
-        android:layout_gravity="center"
-        android:textAlignment="center"
+        android:id="@+id/patechxlflimdp"
+        android:textSize="22sp"
         android:fontFamily="@font/montserratregular"
-        android:text="Anthracnose disease control system"
-        android:textSize="15dp"
-        android:textColor="@color/white" />
+        android:textColor="@color/patech_secondary"
+        />
 
 </LinearLayout>

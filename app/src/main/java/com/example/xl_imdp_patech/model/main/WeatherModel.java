@@ -1,4 +1,4 @@
-package com.example.xl_imdp_patech.model;
+package com.example.xl_imdp_patech.model.main;
 
 import android.os.Parcel;
 import android.os.Parcelable;
