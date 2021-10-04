@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -40,6 +41,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.tensorflow.lite.Interpreter;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -55,6 +62,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     LinearLayout utara, selatan, timur, barat;
     ImageView cancelDialog;
     Dialog dialog;
+    Interpreter interpreter;
+
     private final String FIREBASE_URL = "https://patech-xl-imdp-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
     @Override
@@ -66,7 +75,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        cancelDialog = (ImageView) v.findViewById(R.id.cancel_dialog);
+
+//        cancelDialog = dialog.findViewById(R.id.cancel_dialog);
+
         dialog = new Dialog(getContext());
 
         frameLayout = v.findViewById(R.id.frame_layout_home_frag);
@@ -76,7 +87,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fragmentTransaction.replace(R.id.frame_layout_home_frag, fragmentRTLC);
         fragmentTransaction.commit();
 
-//        showDialog();
+        showDialog();
         utara = v.findViewById(R.id.sensor_utara);
         selatan = v.findViewById(R.id.sensor_selatan);
         timur = v.findViewById(R.id.sensor_timur);
@@ -94,6 +105,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         timur.setOnClickListener(this);
         barat.setOnClickListener(this);
 
+//        cancelDialog.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+
         firebaseDatabase = FirebaseDatabase.getInstance(FIREBASE_URL);
         databaseReference = firebaseDatabase.getReference("data");
 
@@ -110,6 +128,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         Integer currHumidity = arduinoDataModel.getHumidity();
                         Integer currRainCond = arduinoDataModel.getRain_condition();
                         setData(currTemp, currRainDur, currHumidity, currRainCond);
+                        Severity(currRainDur, currTemp);
+                        Log.d("Severity", String.valueOf(Severity(currRainDur, currTemp)));
                     }
                     i++;
                 }
@@ -153,5 +173,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 posisiAlatTV.setText("BARAT");
                 break;
         }
+    }
+
+    public double Severity(float rain_dur, float temp){
+        double sev = 4.0233-(0.2283*rain_dur)-(0.5308*temp)-(0.0013*rain_dur)+(0.0197*(temp*temp))+(0.0155*(rain_dur*temp));
+        return sev;
     }
 }

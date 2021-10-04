@@ -139,7 +139,7 @@ public class RTLineChart extends Fragment implements OnChartValueSelectedListene
         xAxis.setPosition(position);
         xAxis.setAxisMaximum(23);
         xAxis.setAxisMinimum(0);
-        xAxis.setLabelCount(23, true);
+        xAxis.setLabelCount(12);
         xAxis.setGranularityEnabled(true);
         xAxis.setGranularity(0f);
         return v;
