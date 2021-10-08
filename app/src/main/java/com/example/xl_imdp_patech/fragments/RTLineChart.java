@@ -69,15 +69,17 @@ public class RTLineChart extends Fragment implements OnChartValueSelectedListene
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i = 1;
                 tempData = new ArrayList<>();
                 humData = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     ArduinoDataModel arduinoDataModel = dataSnapshot.getValue(ArduinoDataModel.class);
                     assert arduinoDataModel != null;
-                    if(getDate().equals(arduinoDataModel.getDate())){
-                        tempData.add(new Entry(arduinoDataModel.getHour(), arduinoDataModel.getTemp()));
-                        humData.add(new Entry(arduinoDataModel.getHour(), arduinoDataModel.getHumidity()));
-                    }
+//                    if(getDate().equals(arduinoDataModel.getDate())){
+                        tempData.add(new Entry(i, arduinoDataModel.getTemp()));
+                        humData.add(new Entry(i, arduinoDataModel.getHumidity()));
+                        i++;
+//                    }
                 }
                 dataSet = new LineDataSet(tempData, "Temperature");
                 dataSet1 = new LineDataSet(humData, "Humidity");

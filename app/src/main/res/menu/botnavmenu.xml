@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/homeButton"
         android:title="Home"
-        android:icon="@drawable/homeicon"
-        android:iconTint="@color/patech_primary"
-        />
+        android:icon="@drawable/homeicon"        />
+
+    <!--        app:cnb_iconColor = "@color/patech_primary"-->
+
 
     <item
         android:id="@+id/weatherButton"
-        android:title="Weather"
-        android:icon="@drawable/weathericon"/>
-
+        android:title="Cuaca"
+        android:icon="@drawable/weathericon"
+         />
 </menu>

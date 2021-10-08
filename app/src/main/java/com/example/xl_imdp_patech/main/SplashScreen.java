@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.example.xl_imdp_patech.R;
 
 public class SplashScreen extends AppCompatActivity {
-    Home home = new Home();
     TextView textView;
 
     @SuppressLint("SetTextI18n")

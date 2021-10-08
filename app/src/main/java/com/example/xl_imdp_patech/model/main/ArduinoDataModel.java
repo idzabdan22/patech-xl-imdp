@@ -7,11 +7,11 @@ public class ArduinoDataModel {
 
     @SerializedName("humidity")
     @Expose
-    private Integer humidity;
+    private Float humidity;
 
-    @SerializedName("rain_condition")
+    @SerializedName("rain_dur")
     @Expose
-    private Integer rain_condition;
+    private Float rain_dur;
 
     @SerializedName("temp")
     @Expose
@@ -25,13 +25,35 @@ public class ArduinoDataModel {
     @Expose
     private Integer hour;
 
-    public ArduinoDataModel(Integer humidity, Integer rain_condition, Float temp, Float rain_dur, String date, Integer hour) {
+    @SerializedName("last_update")
+    @Expose
+    private String last_update;
+
+    @SerializedName("temp_f")
+    @Expose
+    private Float temp_f;
+
+
+
+    public ArduinoDataModel(Float humidity, Float temp, Float rain_dur, String date, Integer hour, Float temp_f, String last_update) {
         this.humidity = humidity;
-        this.rain_condition = rain_condition;
+        this.last_update = last_update;
         this.temp = temp;
+        this.temp_f = temp_f;
         this.rain_dur = rain_dur;
         this.date = date;
         this.hour = hour;
+    }
+
+    public ArduinoDataModel() {
+    }
+
+    public String getLast_update() {
+        return last_update;
+    }
+
+    public Float getTemp_f() {
+        return temp_f;
     }
 
     public Integer getHour() {
@@ -42,43 +64,16 @@ public class ArduinoDataModel {
         return date;
     }
 
-    public Integer getHumidity() {
+    public Float getHumidity() {
         return humidity;
-    }
-
-    public void setHumidity(Integer humidity) {
-        this.humidity = humidity;
-    }
-
-    public Integer getRain_condition() {
-        return rain_condition;
-    }
-
-    public void setRain_condition(Integer rain_condition) {
-        this.rain_condition = rain_condition;
     }
 
     public Float getTemp() {
         return temp;
     }
 
-    public void setTemp(Float temp) {
-        this.temp = temp;
-    }
-
     public Float getRain_dur() {
         return rain_dur;
-    }
-
-    public void setRain_dur(Float rain_dur) {
-        this.rain_dur = rain_dur;
-    }
-
-    @SerializedName("rain_dur")
-    @Expose
-    private Float rain_dur;
-
-    public ArduinoDataModel(){
     }
 
 

@@ -131,7 +131,6 @@ public class WeatherFragment extends Fragment{
                         Converter dateFormat = new Converter(time);
                         Converter codeConvert = new Converter(codes);
                         codeConvert.codeConverter();
-//                        Log.d("Format", dateFormat.changeToHourFormat().toString());
                         String skyHourCondition = hourItem.getJSONObject("condition").getString("text");
                         WeatherModel model = new WeatherModel(dateFormat.changeDateFormat(), codeConvert.getTextStatus(), hum, (float) temphour);
                         weatherModel.add(model);

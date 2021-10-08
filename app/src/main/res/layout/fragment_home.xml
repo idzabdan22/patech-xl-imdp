@@ -30,8 +30,7 @@
                 android:fontFamily="@font/montserratbold"
                 android:text="SENSOR"
                 android:textSize="13sp"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/posisi_alat"
@@ -41,8 +40,7 @@
                 android:fontFamily="@font/montserratbold"
                 android:text="UTARA"
                 android:textSize="33sp"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/lastUpdateTime"
@@ -51,7 +49,7 @@
                 android:layout_gravity="left"
                 android:fontFamily="@font/montserratregular"
                 android:paddingLeft="2dp"
-                android:text="Update Terakhir 12.30"
+                android:text="Update Terakhir: 12.30"
                 android:textSize="12sp"
                 android:textColor="@color/white"
                 />
@@ -228,9 +226,22 @@
                     android:layout_weight="5"
                     android:orientation="horizontal">
 
-                    <ProgressBar
-                        android:id="@+id/pgbar_utara"
-                        style="@style/progress_bar"/>
+                    <RelativeLayout
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/backround_status_circle">
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/none_drawable"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_gravity="center"
@@ -251,6 +262,7 @@
                             android:layout_height="wrap_content"/>
 
                         <TextView
+                            android:id="@+id/status_utara"
                             android:text="NORMAL"
                             android:textSize="14sp"
                             android:paddingRight="10dp"
@@ -274,6 +286,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/temp_utara"
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
                             android:text="20.0"
@@ -298,6 +311,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/hum_utara"
                             android:text="74"
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
@@ -321,6 +335,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/rain_utara"
                             android:text="3.2"
                             android:fontFamily="@font/montserratbold"
                             android:textSize="15sp"
@@ -349,9 +364,25 @@
                     android:layout_weight="5"
                     android:orientation="horizontal">
 
-                    <ProgressBar
-                        android:id="@+id/pgbar_selatan"
-                        style="@style/progress_bar"/>
+                    <RelativeLayout
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/backround_status_kosong_circle">
+
+                        <TextView
+                            android:text="S"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserratbold"
+                            android:gravity="center"
+                            android:textSize="24sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_gravity="center"
@@ -372,7 +403,7 @@
                             android:layout_height="wrap_content"/>
 
                         <TextView
-                            android:text="WASPADA"
+                            android:text="-"
                             android:textSize="14sp"
                             android:paddingRight="10dp"
                             android:layout_gravity="left"
@@ -397,7 +428,7 @@
                         <TextView
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
-                            android:text="20.0"
+                            android:text="-"
                             style="@style/text_item_data_container"
                             />
 
@@ -419,7 +450,7 @@
                             />
 
                         <TextView
-                            android:text="74"
+                            android:text="-"
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
                             style="@style/text_item_data_container"
@@ -442,7 +473,7 @@
                             />
 
                         <TextView
-                            android:text="3.2"
+                            android:text="-"
                             android:fontFamily="@font/montserratbold"
                             android:textSize="15sp"
                             style="@style/text_item_data_container"
@@ -471,9 +502,25 @@
                     android:layout_weight="5"
                     android:orientation="horizontal">
 
-                    <ProgressBar
-                        android:id="@+id/pgbar_timur"
-                        style="@style/progress_bar"/>
+                    <RelativeLayout
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/backround_status_kosong_circle">
+
+                        <TextView
+                            android:text="T"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserratbold"
+                            android:gravity="center"
+                            android:textSize="24sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_gravity="center"
@@ -494,7 +541,7 @@
                             android:layout_height="wrap_content"/>
 
                         <TextView
-                            android:text="NORMAL"
+                            android:text="-"
                             android:textSize="14sp"
                             android:paddingRight="10dp"
                             android:layout_gravity="center"
@@ -520,7 +567,7 @@
                         <TextView
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
-                            android:text="20.0"
+                            android:text="-"
                             style="@style/text_item_data_container"
                             />
 
@@ -543,7 +590,7 @@
                             />
 
                         <TextView
-                            android:text="74"
+                            android:text="-"
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
                             style="@style/text_item_data_container"
@@ -567,7 +614,7 @@
                             />
 
                         <TextView
-                            android:text="3.2"
+                            android:text="-"
                             android:fontFamily="@font/montserratbold"
                             android:textSize="15sp"
                             style="@style/text_item_data_container"
@@ -595,9 +642,25 @@
                     android:layout_weight="5"
                     android:orientation="horizontal">
 
-                    <ProgressBar
-                        android:id="@+id/pgbar_barat"
-                        style="@style/progress_bar"/>
+                    <RelativeLayout
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/backround_status_kosong_circle">
+
+                        <TextView
+                            android:text="B"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/montserratbold"
+                            android:gravity="center"
+                            android:textSize="24sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_gravity="center"
@@ -618,7 +681,7 @@
                             android:layout_height="wrap_content"/>
 
                         <TextView
-                            android:text="SIAGA"
+                            android:text="-"
                             android:textSize="14sp"
                             android:paddingRight="10dp"
                             android:layout_gravity="center"
@@ -644,7 +707,7 @@
                         <TextView
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
-                            android:text="20.0"
+                            android:text="-"
                             style="@style/text_item_data_container"
                             />
 
@@ -667,7 +730,7 @@
                             />
 
                         <TextView
-                            android:text="74"
+                            android:text="-"
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
                             style="@style/text_item_data_container"
@@ -691,7 +754,7 @@
                             />
 
                         <TextView
-                            android:text="3.2"
+                            android:text="-"
                             android:fontFamily="@font/montserratbold"
                             android:textSize="15sp"
                             style="@style/text_item_data_container"

@@ -113,7 +113,7 @@
             android:id="@+id/register_button"
             style="@style/login_register_button"
             android:layout_marginBottom="15dp"
-            android:text="Register"
+            android:text="Daftar"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:fontFamily="@font/montserratbold"

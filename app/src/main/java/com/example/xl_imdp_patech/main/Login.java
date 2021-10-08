@@ -94,6 +94,16 @@ public class Login extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() != null){
+            Intent intent = new Intent(Login.this, Home.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         backpress += 1;
         if(backpress >= 2){
@@ -125,7 +135,7 @@ public class Login extends AppCompatActivity {
 
     private void signInWithFirebase(String email, String password, boolean valid){
         if (!valid){
-            Toast.makeText(getApplicationContext(), "Login Gagal!, Silahkan Isi kembali", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Login Gagal!", Toast.LENGTH_SHORT).show();
             return;
         }
 

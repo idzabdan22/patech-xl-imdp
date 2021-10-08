@@ -41,7 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.tensorflow.lite.Interpreter;
+//import org.tensorflow.lite.Interpreter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,12 +57,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     FrameLayout frameLayout;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
-    TextView tempTv, humTV, raindurTV, lastupdateTV, statusTV, posisiAlatTV;
+    TextView tempTv, humTV, raindurTV, lastupdateTV, statusTV, posisiAlatTV, tempUT, humUT, rainUT, statusUT;
     ProgressBar progressBar;
     LinearLayout utara, selatan, timur, barat;
     ImageView cancelDialog;
     Dialog dialog;
-    Interpreter interpreter;
 
     private final String FIREBASE_URL = "https://patech-xl-imdp-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
@@ -76,8 +75,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-//        cancelDialog = dialog.findViewById(R.id.cancel_dialog);
-
         dialog = new Dialog(getContext());
 
         frameLayout = v.findViewById(R.id.frame_layout_home_frag);
@@ -87,11 +84,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         fragmentTransaction.replace(R.id.frame_layout_home_frag, fragmentRTLC);
         fragmentTransaction.commit();
 
-        showDialog();
         utara = v.findViewById(R.id.sensor_utara);
         selatan = v.findViewById(R.id.sensor_selatan);
         timur = v.findViewById(R.id.sensor_timur);
         barat = v.findViewById(R.id.sensor_barat);
+
+        rainUT = v.findViewById(R.id.rain_utara);
+        tempUT = v.findViewById(R.id.temp_utara);
+        humUT = v.findViewById(R.id.hum_utara);
+        statusUT = v.findViewById(R.id.status_utara);
 
         posisiAlatTV = v.findViewById(R.id.posisi_alat);
         tempTv = v.findViewById(R.id.temperatureRecent);
@@ -104,13 +105,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         selatan.setOnClickListener(this);
         timur.setOnClickListener(this);
         barat.setOnClickListener(this);
-
-//        cancelDialog.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
 
         firebaseDatabase = FirebaseDatabase.getInstance(FIREBASE_URL);
         databaseReference = firebaseDatabase.getReference("data");
@@ -125,11 +119,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         assert arduinoDataModel != null;
                         Float currTemp = arduinoDataModel.getTemp();
                         Float currRainDur = arduinoDataModel.getRain_dur();
-                        Integer currHumidity = arduinoDataModel.getHumidity();
-                        Integer currRainCond = arduinoDataModel.getRain_condition();
-                        setData(currTemp, currRainDur, currHumidity, currRainCond);
-                        Severity(currRainDur, currTemp);
-                        Log.d("Severity", String.valueOf(Severity(currRainDur, currTemp)));
+                        Float currHumidity = arduinoDataModel.getHumidity();
+                        String last_update = arduinoDataModel.getLast_update();
+                        setData(currTemp, currRainDur, currHumidity, last_update);
                     }
                     i++;
                 }
@@ -142,18 +134,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    private void showDialog(){
-        dialog.setContentView(R.layout.dialog_layout);
-        dialog.getWindow().setBackgroundDrawable(null);
-        dialog.getWindow().setDimAmount(0.0f);
-        dialog.show();
-    }
 
     @SuppressLint("SetTextI18n")
-    private void setData(Float temp, Float rain_dur, Integer hum, Integer rain_cond){
+    private void setData(Float temp, Float rain_dur, Float hum, String last_update){
         tempTv.setText(temp.toString());
         raindurTV.setText(rain_dur.toString());
         humTV.setText(hum.toString());
+        tempUT.setText(temp.toString());
+        rainUT.setText(rain_dur.toString());
+        humUT.setText(hum.toString());
+        lastupdateTV.setText("Update Terakhir: " + last_update);
     }
 
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
@@ -162,21 +152,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.sensor_utara:
                 posisiAlatTV.setText("UTARA");
+                posisiAlatTV.setText("UTARA");
                 break;
             case R.id.sensor_selatan:
+                posisiAlatTV.setText("SELATAN");
                 posisiAlatTV.setText("SELATAN");
                 break;
             case R.id.sensor_timur:
                 posisiAlatTV.setText("TIMUR");
+                posisiAlatTV.setText("TIMUR");
                 break;
             case R.id.sensor_barat:
                 posisiAlatTV.setText("BARAT");
+                posisiAlatTV.setText("BARAT");
                 break;
         }
-    }
-
-    public double Severity(float rain_dur, float temp){
-        double sev = 4.0233-(0.2283*rain_dur)-(0.5308*temp)-(0.0013*rain_dur)+(0.0197*(temp*temp))+(0.0155*(rain_dur*temp));
-        return sev;
     }
 }

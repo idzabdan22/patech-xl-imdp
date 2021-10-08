@@ -7,6 +7,7 @@
     android:background="@color/white"
     tools:context=".main.Login">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,7 +17,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_marginTop = "150dp"
@@ -30,7 +31,7 @@
                 <ImageView
                     android:layout_width="118dp"
                     android:layout_height="118dp"
-                    android:layout_marginLeft="17dp"
+                    android:layout_marginStart="17dp"
                     android:src="@drawable/logo_patech"
                     />
 
@@ -123,6 +124,8 @@
                         android:id="@+id/google_login_button"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:textSize="16sp"
                         android:text="Login dengan Google"
                         android:textColor="@color/black"
@@ -131,7 +134,7 @@
                         android:fontFamily="@font/montserratregular"
                         android:layout_gravity="center"
                         android:paddingLeft="15dp"
-                        android:background="@drawable/base_layout_gf"
+                        android:background="@drawable/button_pressed_login"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:drawableLeft="@drawable/drawable_icon_google"
@@ -189,7 +192,7 @@
                         android:focusable="true"
                         android:id="@+id/registertext"
                         android:layout_toRightOf="@+id/tidakpunyakun"
-                        android:text="Register."
+                        android:text="Daftar."
                         android:fontFamily="@font/montserratbold"
                         android:layout_width="wrap_content"
                         android:textColor="@color/patech_primary"
