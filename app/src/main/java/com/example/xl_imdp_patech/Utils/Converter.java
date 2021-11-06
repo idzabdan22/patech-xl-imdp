@@ -46,13 +46,13 @@ public class Converter {
                 this.textStatus = "BERKABUT";
             }
             else if(this.code == 1063){
-                this.textStatus = "KEMUNGKINAN GERIMIS";
+                this.textStatus = "KEMUNGKINAN\nGERIMIS";
             }
             else if(this.code == 1243){
                 this.textStatus = "HUJAN SEDANG/DERAS";
             }
             else if(this.code == 1276){
-                this.textStatus = "HUJAN DISERTAI PETIR";
+                this.textStatus = "HUJAN DISERTAI\nPETIR";
             }
             else if(this.code == 1195){
                 this.textStatus = "HUJAN DERAS";
@@ -76,7 +76,7 @@ public class Converter {
                 this.textStatus = "HUJAN RINGAN";
             }
             else if(this.code == 1273){
-                this.textStatus = "GERIMIS DISERTAI PETIR";
+                this.textStatus = "GERIMIS DISERTAI\nPETIR";
             }
             else if(this.code == 1246){
                 this.textStatus = "HUJAN SANGAT DERAS";
@@ -105,7 +105,7 @@ public class Converter {
             }
             else if(this.code == 1063){
                 this.imageName = context.getResources().getDrawable(R.drawable.status_gerimis);
-                this.textStatus = "KEMUNGKINAN GERIMIS";
+                this.textStatus = "KEMUNGKINAN\nGERIMIS";
             }
             else if(this.code == 1243){
                 this.imageName = context.getResources().getDrawable(R.drawable.status_hujan);
@@ -145,7 +145,7 @@ public class Converter {
             }
             else if(this.code == 1273){
                 this.imageName = context.getResources().getDrawable(R.drawable.status_gerimis);
-                this.textStatus = "GERIMIS DISERTAI PETIR";
+                this.textStatus = "GERIMIS DISERTAI\nPETIR";
             }
             else if(this.code == 1246){
                 this.imageName = context.getResources().getDrawable(R.drawable.status_hujan);

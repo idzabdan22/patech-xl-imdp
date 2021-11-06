@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -23,13 +24,12 @@ public class NotifServices extends android.app.Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         try {
             Intent notification = new Intent(this, Home.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notification, 0);
-            notification.putExtra("code", 1);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel("1", "PatechNotif", NotificationManager.IMPORTANCE_DEFAULT);
@@ -37,16 +37,21 @@ public class NotifServices extends android.app.Service {
                 notificationManager.createNotificationChannel(channel);
             }
 
-            Notification notification_build = new NotificationCompat.Builder(NotifServices.this, "notification")
-                    .setContentTitle("TANAMAN BERPOTENSI ANTRAKNOSA!")
+            NotificationCompat.Builder notification_build = new NotificationCompat.Builder(this, "1");
+            Notification notification1 = notification_build
                     .setSmallIcon(R.drawable.logo_patech)
+                    .setContentTitle("TANAMAN BERPOTENSI ANTRAKNOSA!")
                     .setContentText("Segera cek kondisi tanaman cabai Anda")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(Notification.CATEGORY_SERVICE)
                     .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
                     .build();
 
+//            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+//            notificationManager.notify(1, notification_build.build());
 
-            startForeground(1, notification_build);
+            startForeground(1, notification1);
+
 
 
             //notification manager
@@ -59,7 +64,7 @@ public class NotifServices extends android.app.Service {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return super.onStartCommand(intent, flags, startId);
-//        return START_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
+        return START_NOT_STICKY;
     }
 }

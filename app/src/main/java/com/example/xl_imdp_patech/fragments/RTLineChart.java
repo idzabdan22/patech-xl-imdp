@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.xl_imdp_patech.R;
 import com.example.xl_imdp_patech.Utils.XAxisValueFormatter;
@@ -51,6 +52,7 @@ public class RTLineChart extends Fragment implements OnChartValueSelectedListene
     private final String FIREBASE_URL = "https://patech-xl-imdp-default-rtdb.asia-southeast1.firebasedatabase.app/";
     private ArrayList<Entry> tempData = new ArrayList<>();
     private ArrayList<Entry> humData = new ArrayList<>();
+    private ArrayList<Entry> lwData = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,29 +62,31 @@ public class RTLineChart extends Fragment implements OnChartValueSelectedListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_r_t_line_chart, container, false);
 
         firebaseDatabase = FirebaseDatabase.getInstance(FIREBASE_URL);
-        databaseReference = firebaseDatabase.getReference("data");
+        databaseReference = firebaseDatabase.getReference("data/station_utara");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int i = 1;
                 tempData = new ArrayList<>();
                 humData = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Log.d("count", String.valueOf(snapshot.getChildrenCount()));
                     ArduinoDataModel arduinoDataModel = dataSnapshot.getValue(ArduinoDataModel.class);
                     assert arduinoDataModel != null;
-//                    if(getDate().equals(arduinoDataModel.getDate())){
-                        tempData.add(new Entry(i, arduinoDataModel.getTemp()));
-                        humData.add(new Entry(i, arduinoDataModel.getHumidity()));
-                        i++;
-//                    }
+                    if(getDate().equals(arduinoDataModel.getDate())){
+                        tempData.add(new Entry(arduinoDataModel.getHour(), arduinoDataModel.getTemp()));
+                        humData.add(new Entry(arduinoDataModel.getHour(), arduinoDataModel.getHumidity()));
+                    }
+                    else{
+                    }
                 }
-                dataSet = new LineDataSet(tempData, "Temperature");
-                dataSet1 = new LineDataSet(humData, "Humidity");
+                dataSet = new LineDataSet(tempData, "Temperatur (°C)");
+                dataSet1 = new LineDataSet(humData, "Kelembaban (%)");
+
                 if (lineChart.getData() != null && lineChart.getData().getDataSetCount() > 0) {
                     dataSet = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
                     dataSet1 = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
@@ -119,12 +123,18 @@ public class RTLineChart extends Fragment implements OnChartValueSelectedListene
         lineChart = v.findViewById(R.id.line_chart);
 
         lineChart.setTouchEnabled(true);
-        lineChart.setPinchZoom(true);
+
 
         lineChart.getAxisRight().setEnabled(false);
 
         XAxis xAxis = lineChart.getXAxis();
         YAxis leftAxis = lineChart.getAxisLeft();
+
+        lineChart.getDescription().setEnabled(true);
+        Description description = new Description();
+        description.setText("Jam");
+        description.setTextSize(15f);
+
         leftAxis.setAxisMaximum(100f);
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         leftAxis.setAxisMinimum(10f);

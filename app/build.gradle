@@ -46,6 +46,9 @@ dependencies {
         implementation platform('com.google.firebase:firebase-bom:28.4.0')
         implementation 'com.google.firebase:firebase-auth'
         implementation 'com.google.firebase:firebase-database'
+        //noinspection OutdatedLibrary
+        implementation 'com.google.firebase:firebase-ml-model-interpreter:22.0.3'
+
     //Google Play Dependencies
         implementation 'com.google.android.gms:play-services-auth:19.2.0'
         implementation 'com.google.android.gms:play-services-location:18.0.0'

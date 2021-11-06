@@ -11,9 +11,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/patech_icon_app"
+        android:icon="@drawable/logo_app_fix"
         android:label="Patech"
-        android:roundIcon="@drawable/patech_icon_app"
+        android:roundIcon="@drawable/logo_app_fix"
         android:supportsRtl="true"
         android:theme="@style/Theme.Xl_imdp_patech">
         <activity android:name=".main.Home" />
@@ -29,6 +29,9 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <service android:name=".service.NotifServices"
+            android:enabled="true"/>
 
     </application>
 

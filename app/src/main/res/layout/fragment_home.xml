@@ -83,7 +83,7 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="TEMP"
+                       android:text="SUHU"
                        android:layout_gravity="center"
                        android:textSize="8sp"
                        android:fontFamily="@font/montserratregular"
@@ -97,7 +97,7 @@
                        android:text="25"
                        android:fontFamily="@font/montserratbold"
                        android:layout_gravity="center"
-                       android:textSize="26sp"
+                       android:textSize="18sp"
                        android:textColor="@color/black"
                        />
 
@@ -121,7 +121,7 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="HUM"
+                       android:text="LEMBAB"
                        android:fontFamily="@font/montserratregular"
                        android:layout_gravity="center"
                        android:textSize="8sp"
@@ -133,7 +133,7 @@
                        android:layout_height="wrap_content"
                        android:text="68"
                        android:fontFamily="@font/montserratbold"
-                       android:textSize="26sp"
+                       android:textSize="18sp"
                        android:layout_gravity="center"
                        android:textColor="@color/black"
                        />
@@ -157,7 +157,7 @@
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="RAIN"
+                       android:text="LW"
                        android:fontFamily="@font/montserratregular"
                        android:layout_gravity="center"
                        android:textSize="8sp"
@@ -172,7 +172,7 @@
                        android:fontFamily="@font/montserratbold"
                        android:text="2.5"
                        android:textColor="@color/black"
-                       android:textSize="26sp" />
+                       android:textSize="18sp" />
 
                    <TextView
                        android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
                        android:text="NORMAL"
                        android:fontFamily="@font/montserratbold"
                        android:layout_gravity="center"
-                       android:textSize="13sp"
+                       android:textSize="11sp"
                        android:textColor="@color/white"
                        />
 
@@ -219,7 +219,6 @@
                     android:id="@+id/sensor_utara"
                     android:clickable="true"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:background="@drawable/button_pressed"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -252,7 +251,7 @@
 
                         <TextView
                             android:text="UTARA"
-                            android:textSize="14sp"
+                            android:textSize="11sp"
                             android:paddingRight="10dp"
                             android:layout_gravity="center"
                             android:gravity="left"
@@ -264,7 +263,7 @@
                         <TextView
                             android:id="@+id/status_utara"
                             android:text="NORMAL"
-                            android:textSize="14sp"
+                            android:textSize="11sp"
                             android:paddingRight="10dp"
                             android:layout_gravity="center"
                             android:gravity="left"
@@ -281,13 +280,13 @@
                         style="@style/box_item_data_container_container">
 
                         <TextView
-                            android:text="TEMP"
+                            android:text="SUHU"
                             style="@style/text_item_data_container"
                             />
 
                         <TextView
                             android:id="@+id/temp_utara"
-                            android:textSize="15sp"
+                            android:textSize="11sp"
                             android:fontFamily="@font/montserratbold"
                             android:text="20.0"
                             style="@style/text_item_data_container"
@@ -306,14 +305,14 @@
                         style="@style/box_item_data_container_container">
 
                         <TextView
-                            android:text="HUM"
+                            android:text="LEMBAB"
                             style="@style/text_item_data_container"
                             />
 
                         <TextView
                             android:id="@+id/hum_utara"
                             android:text="74"
-                            android:textSize="15sp"
+                            android:textSize="11sp"
                             android:fontFamily="@font/montserratbold"
                             style="@style/text_item_data_container"
                             />
@@ -330,7 +329,7 @@
                         style="@style/box_item_data_container_container">
 
                         <TextView
-                            android:text="RAIN"
+                            android:text="LW"
                             style="@style/text_item_data_container"
                             />
 
@@ -338,7 +337,7 @@
                             android:id="@+id/rain_utara"
                             android:text="3.2"
                             android:fontFamily="@font/montserratbold"
-                            android:textSize="15sp"
+                            android:textSize="11sp"
                             style="@style/text_item_data_container"
                             />
 
@@ -357,7 +356,6 @@
                     android:id="@+id/sensor_selatan"
                     android:clickable="true"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:background="@drawable/button_pressed"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
@@ -495,7 +493,6 @@
                     android:id="@+id/sensor_timur"
                     android:clickable="true"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:background="@drawable/button_pressed"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
@@ -565,6 +562,7 @@
                             />
 
                         <TextView
+                            android:id="@+id/temp_timur"
                             android:textSize="15sp"
                             android:fontFamily="@font/montserratbold"
                             android:text="-"
@@ -635,7 +633,6 @@
                     android:id="@+id/sensor_barat"
                     android:clickable="true"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:background="@drawable/button_pressed"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"

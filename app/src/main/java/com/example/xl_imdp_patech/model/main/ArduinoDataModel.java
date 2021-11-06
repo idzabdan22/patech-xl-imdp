@@ -5,35 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class ArduinoDataModel {
 
-    @SerializedName("humidity")
-    @Expose
     private Float humidity;
-
-    @SerializedName("rain_dur")
-    @Expose
     private Float rain_dur;
-
-    @SerializedName("temp")
-    @Expose
     private Float temp;
-
-    @SerializedName("date")
-    @Expose
     private String date;
-
-    @SerializedName("hour")
-    @Expose
     private Integer hour;
-
-    @SerializedName("last_update")
-    @Expose
     private String last_update;
-
-    @SerializedName("temp_f")
-    @Expose
     private Float temp_f;
-
-
 
     public ArduinoDataModel(Float humidity, Float temp, Float rain_dur, String date, Integer hour, Float temp_f, String last_update) {
         this.humidity = humidity;
@@ -45,7 +23,8 @@ public class ArduinoDataModel {
         this.hour = hour;
     }
 
-    public ArduinoDataModel() {
+    public ArduinoDataModel(){
+
     }
 
     public String getLast_update() {
@@ -75,7 +54,4 @@ public class ArduinoDataModel {
     public Float getRain_dur() {
         return rain_dur;
     }
-
-
-
 }
